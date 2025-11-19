@@ -8,6 +8,7 @@ const CarDetails = () => {
   const {id} = useParams()
   const navigate = useNavigate()
   const [car,setCar] = useState([])
+  const currency = import.meta.env.VITE_CURRENCY
 
   useEffect(() => {
     setCar(dummyCarData.find(car => car._id === id))
@@ -22,7 +23,7 @@ const CarDetails = () => {
 
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
         {/* left side: Car Image & Details */}
-        <div className='lg:cols-span-2'>
+        <div className='lg:col-span-2'>
           <img className='w-full h-auto md:max-h-100 object-cover rounded-xl mb-6 shadow-md' src={car.image} alt="" />
           <div className='space-y-6'>
             <div>
@@ -38,14 +39,15 @@ const CarDetails = () => {
                 {icon:assets.fuel_icon, text:car.fuel_type},
                 {icon:assets.car_icon, text:car.transmission},
                 {icon:assets.location_icon, text:car.location},
-              ].map(({icon,text}) => (
-                <div key={text} className='flex flex-col items-center bg-light p-4 rounded-lg'>
+              ].map(({icon,text},index) => (
+                <div key={index} className='flex flex-col items-center bg-light p-4 rounded-lg'>
                   <img className='h-5 mb-2' src={icon} alt="" />
                   {text}
                 </div>
               ))
               }
             </div>
+
             {/* Description */}
             <div>
               <h1 className='text-xl font-medium mb-3'>Description</h1>
@@ -66,13 +68,27 @@ const CarDetails = () => {
                 }
               </ul>
             </div>
-
           </div>
         </div>
 
         {/* Right side: Booking form*/}
-        <form>
+        <form className='shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500'>
+          <p 
+          className='flex items-center justify-between text-2xl text-gray-800 font-semibold'
+          >
+            {currency}{car.pricePerDay} 
+            <span className='text-base text-gray-400 font-normal'>per day</span>
+          </p>
 
+          <hr className='border-borderColor my-6'/>
+
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="pickup-date">Pickup Date</label>
+            <input 
+            type="date" 
+            className='border border-borderColor px-3 py-2 rounded-lg'required id='pickup-date' min={new Date().toISOString().split("T")[0]}
+            />
+          </div>
         </form>
       </div>
 
