@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { assets, dummyCarData } from '../assets/assets'
+import Loader from '../components/Loader'
 
 const CarDetails = () => {
 
@@ -76,7 +77,7 @@ const CarDetails = () => {
       </div>
 
     </div>
-  ) : <p>Loading...</p>
+  ) : <Loader />
 }
 
 export default CarDetails
