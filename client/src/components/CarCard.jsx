@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 
 const CarCard = ({car}) => {
+    console.log(car)
     const currency = import.meta.env.VITE_CURRENCY
     const navigate = useNavigate()
   return (
@@ -11,7 +12,7 @@ const CarCard = ({car}) => {
 
             <img src={car.image} alt="Car Image" className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105' />
             {
-                car.isAvailable && <p className='absolute top-4 left-4 bg-primary/90 text-white text-xs px-2.5 py-1 rounded-full '>Available Now</p>
+                car.isAvaliable && <p className='absolute top-4 left-4 bg-primary/90 text-white text-xs px-2.5 py-1 rounded-full '>Available Now</p>
             }
 
         </div>
