@@ -7,7 +7,7 @@ const Dashboard = () => {
         totalCars:0,
         totalBookings:0,
         pendingBookings:0,
-        completeBookings:0,
+        completedBookings:0,
         recentBookings:[],
         monthlyRevenue:0
     })
@@ -16,7 +16,7 @@ const Dashboard = () => {
         {title:"Total Cars", value:data.totalCars, icon:assets.carIconColored},
         {title:"Total Bookings", value:data.totalBookings, icon:assets.listIconColored},
         {title:"Pending", value:data.pendingBookings, icon:assets.cautionIconColored},
-        {title:"Confirmed", value:data.completeBookings, icon:assets.listIconColored}
+        {title:"Confirmed", value:data.completedBookings, icon:assets.listIconColored}
     ]
 
     useEffect(() => {
@@ -42,6 +42,18 @@ const Dashboard = () => {
                 ))
             }
         </div>
+
+        <div className='flex flex-wrap items-start gap-6 mb-8 w-full'>
+            {/* Recent Bookings */}
+            <div className='p-4 md:p-6 border border-borderColor rounded-md max-w-lg w-full'>
+                <h1 className='text-lg font-medium'>Recent Booking</h1>
+                <p>Latest customer bookings</p>
+            </div>
+
+            {/* Monthly Revenue */}
+            <div></div>
+        </div>
+
     </div>
   )
 }
