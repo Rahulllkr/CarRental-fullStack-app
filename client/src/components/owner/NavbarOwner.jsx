@@ -10,7 +10,7 @@ const NavbarOwner = () => {
        <Link to={"/"}>
            <img className='h-7' src={assets.logo} alt="" />
        </Link> 
-       <p>Welcome Owner</p>
+       <p>Welcome, {user.name}</p>
     </div>
   )
 }
