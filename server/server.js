@@ -4,6 +4,7 @@ import cors from 'cors'
 import connectDB from './configs/mongoDB.js'
 import userRouter from './routes/userRouter.js'
 import ownerRouter from './routes/ownerRoutes.js'
+import bookingRouter from './routes/bookingRoutes.js'
 
 //Initialize Express App
 const app = express()
@@ -21,6 +22,7 @@ app.get("/",(req,res) => {
 
 app.use("/carRental/user",userRouter)
 app.use("/carRental/owner",ownerRouter)
+app.use("/carRental/booking",bookingRouter)
 
 const PORT  = process.env.PORT || 3000;
 app.listen(PORT,() => {

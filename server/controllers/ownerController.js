@@ -2,6 +2,7 @@ import User from "../models/userModel.js"
 import Car from "../models/car.js"
 import fs from 'fs'
 import imageKit from "../configs/imageKit.js"
+import Booking from "../models/booking.js"
 
 
 // API to change Role of user
@@ -127,8 +128,25 @@ export const getDashboardData = async(req,res) => {
             return res.json({success:false,message:"Unauthorized"})
         }
 
-        const cars = await car.find({})
+        const cars = await Car.find({owner:_id})
 
+        const bookings = await Booking.find({owner:_id}).populate("car").sort({createdAt:-1})
+
+        const pendingBookings = await Booking.find({owner:_id,status:"pending"})
+        const completedBookings = await Booking.find({owner:_id,status:"confirmed"})
+
+        // Calculate monthlyRevenue from bookings where status is confirmed
+
+        const monthlyRevenue = bookings.slice().filter(booking => booking.status === "confirmed").reduce((acc,booking) => acc + booking.price , 0)
+
+        const dashBoardData = {
+            totalCars : cars.length,
+            totalBookings:bookings.length,
+            pendingBookings:pendingBookings.length,
+            completedBookings:completedBookings.length,
+            recentBookings:bookings.slice(0,3)
+
+        }
     }
     catch(err){
         console.log(err.message)
