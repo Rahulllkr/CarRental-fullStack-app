@@ -14,7 +14,7 @@ export const changeRoleToOwner = async(req,res) => {
     }
     catch(err){
         console.log(err.message)
-        res.json({success:true,message:err.message})
+        res.json({success:false,message:err.message})
     }
 }
 
@@ -51,7 +51,7 @@ export const addCar = async(req,res) => {
         
     } catch (error) {
         console.log(err.message)
-        res.json({success:true,message:err.message})
+        res.json({success:false,message:err.message})
     }
 }
 
@@ -65,7 +65,7 @@ export const getOwnerCars = async(req,res) => {
     }
     catch(err){
         console.log(err.message)
-        res.json({success:true,message:err.message})
+        res.json({success:false,message:err.message})
     }
 }
 
@@ -89,7 +89,7 @@ export const toggleCarAvailability = async(req,res) => {
     }
     catch(err){
         console.log(err.message)
-        res.json({success:true,message:err.message})
+        res.json({success:false,message:err.message})
     }   
 }
 
@@ -115,7 +115,7 @@ export const deleteCar = async(req,res) => {
     }
     catch(err){
         console.log(err.message)
-        res.json({success:true,message:err.message})
+        res.json({success:false,message:err.message})
     }   
 }
 
@@ -152,7 +152,7 @@ export const getDashboardData = async(req,res) => {
     }
     catch(err){
         console.log(err.message)
-        res.json({success:true,message:err.message})
+        res.json({success:false,message:err.message})
     }   
 }
 
@@ -175,7 +175,7 @@ export const updateUserImage = async(req,res) => {
         var optimizedImageUrl = imageKit.url({
             path : response.filePath,
             transformation : [
-                {width:"1280"},     // width resizing
+                {width:"400"},     // width resizing
                 {quality:"auto"},   // auto compression
                 {format:"webp"},    // convert to modern format
             ]
@@ -188,6 +188,6 @@ export const updateUserImage = async(req,res) => {
     } 
     catch (err) {
         console.log(err.message)
-        res.json({success:true,message:err.message})   
+        res.json({success:false,message:err.message})   
     }
 }
