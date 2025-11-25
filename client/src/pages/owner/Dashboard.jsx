@@ -28,7 +28,7 @@ const Dashboard = () => {
             const {data} = await axios.get("/carRental/owner/dashboard")
             if(data.success){
                 setData(data.dashBoardData)
-                console.log(data)
+                // console.log(data)
             }else{
                 toast.error(data.message)
             }
