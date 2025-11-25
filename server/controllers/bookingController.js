@@ -1,5 +1,5 @@
 import Booking from "../models/booking.js"
-import Car from "../models/car";
+import Car from "../models/car.js";
 
 
 // Function to check Availability of car for a given date

@@ -26,7 +26,7 @@ export const addCar = async(req,res) => {
         let car = JSON.parse(req.body.carData)
         const imageFile = req.file;
 
-        // Upload Image to imagekit
+        // Upload Image to imageKit
         const fileBuffer = fs.readFileSync(imageFile.path)
 
         const response = await imageKit.upload({
@@ -144,12 +144,50 @@ export const getDashboardData = async(req,res) => {
             totalBookings:bookings.length,
             pendingBookings:pendingBookings.length,
             completedBookings:completedBookings.length,
-            recentBookings:bookings.slice(0,3)
-
+            recentBookings:bookings.slice(0,3),
+            monthlyRevenue
         }
+
+        res.json({success:true,dashBoardData})
     }
     catch(err){
         console.log(err.message)
         res.json({success:true,message:err.message})
     }   
+}
+
+// API to update user image
+export const updateUserImage = async(req,res) => {
+    try {
+        const {_id} = req.user
+        const imageFile = req.file;
+
+        // Upload Image to imageKit
+        const fileBuffer = fs.readFileSync(imageFile.path)
+
+        const response = await imageKit.upload({
+            file:fileBuffer,
+            fileName:imageFile.originalname,
+            folder:"/users"
+        })
+
+        // optimization through imageKit URL transformation
+        var optimizedImageUrl = imageKit.url({
+            path : response.filePath,
+            transformation : [
+                {width:"1280"},     // width resizing
+                {quality:"auto"},   // auto compression
+                {format:"webp"},    // convert to modern format
+            ]
+        })       
+        
+        const image = optimizedImageUrl
+
+        await User.findByIdAndUpdate(_id,{image})
+        res.json({success:true,message:"Image Updated"})
+    } 
+    catch (err) {
+        console.log(err.message)
+        res.json({success:true,message:err.message})   
+    }
 }
