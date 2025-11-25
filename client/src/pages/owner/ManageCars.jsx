@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { assets, dummyCarData } from '../../assets/assets'
 import Title from '../../components/owner/Title'
+import { useAppContext } from '../../context/AppContext'
 
 const ManageCars = () => {
 
-  const currency = import.meta.env.VITA_CURRENCY
+  const {isOwner,axios,currency} = useAppContext
   const [cars,setCars] = useState([])
 
   const fetchOwnerCars = async () => {
-    setCars(dummyCarData)
+    
   }
 
   useEffect(() => {
