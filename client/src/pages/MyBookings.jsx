@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { assets, dummyMyBookingsData } from '../assets/assets'
+import { assets } from '../assets/assets'
 import Title from '../components/Title'
+import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
 
 const MyBookings = () => {
 
+  const {axios,user,currency} = useAppContext()
   const [bookings,setBookings] = useState([])
-  const currency = import.meta.env.VITE_CURRENCY
 
   const fetchMyBookings = async() => {
-    setBookings(dummyMyBookingsData)
+    try {
+      const {data} = await axios.get("/carRental/bookings/user")
+      if(data.success){
+        setBookings(data.bookings)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (err) {
+      toast.error(err.message)
+    }
   }
 
   useEffect(() => {
-    fetchMyBookings()
-  },[])
+    user && fetchMyBookings()
+  },[user])
   return (
     <div className='px-6 md:mx-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-7xl'>
       <Title title="My Bookings" subTitle="View and manage your all car bookings" align="left"/>
