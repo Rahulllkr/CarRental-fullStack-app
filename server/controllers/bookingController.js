@@ -16,14 +16,14 @@ const checkAvailability = async (car,pickupDate,returnDate) => {
 // API to check Availability of cars for the given date and location
 export const checkAvailabilityOfCar = async (req,res) => {
     try{
-        const {location,pickupDate,returnData} = req.body
+        const {location,pickupDate,returnDate} = req.body
 
         // fetch all available cars for the given location
         const cars = await Car.find({location,isAvaliable:true})
 
         // check car availability for the given date range using promise
         const availableCarPromises = cars.map( async(car,index) => {
-           const isAvailable =  await checkAvailability(car._id,pickupDate,returnData)
+           const isAvailable =  await checkAvailability(car._id,pickupDate,returnDate)
 
            return {...car._doc,isAvailable:isAvailable}
         })

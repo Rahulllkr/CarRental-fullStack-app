@@ -22,7 +22,7 @@ app.get("/",(req,res) => {
 
 app.use("/carRental/user",userRouter)
 app.use("/carRental/owner",ownerRouter)
-app.use("/carRental/booking",bookingRouter)
+app.use("/carRental/bookings",bookingRouter)
 
 const PORT  = process.env.PORT || 3000;
 app.listen(PORT,() => {
